@@ -1,0 +1,74 @@
+/* Animated rainbow border CTA with token colors */
+.rainbow-cta {
+  --rainbow-band: linear-gradient(
+    90deg,
+    var(--accent),
+    var(--destructive),
+    var(--primary),
+    var(--muted-foreground),
+    var(--accent)
+  );
+  --rainbow-surface: var(--popover);
+  --rainbow-border: calc(var(--spacing, 0.25rem) * 0.32);
+  --rainbow-duration: 5s;
+  --rainbow-glow-blur: calc(var(--spacing, 0.25rem) * 3.2);
+
+  position: relative;
+  isolation: isolate;
+  border: var(--rainbow-border) solid transparent;
+  background-image:
+    linear-gradient(var(--rainbow-surface), var(--rainbow-surface)),
+    linear-gradient(
+      var(--rainbow-surface) 50%,
+      color-mix(in oklab, var(--popover) 60%, transparent) 80%,
+      transparent
+    ),
+    linear-gradient(90deg, var(--accent), var(--destructive), var(--primary), var(--muted-foreground), var(--accent));
+  background-size: 100% 100%, 100% 100%, 200% 100%;
+  background-position: 0 0, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, repeat;
+  /* Surfaces stay inside the padding box so the band shows on all four edges. */
+  background-clip: padding-box, padding-box, border-box;
+  background-origin: border-box;
+  animation: rainbow-band var(--rainbow-duration) linear infinite;
+}
+
+/* Soft glow trailing under the button, swept by the same spectrum. */
+.rainbow-cta::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  bottom: -20%;
+  left: 50%;
+  width: 60%;
+  height: 20%;
+  translate: -50% 0;
+  background-image: linear-gradient(90deg, var(--accent), var(--destructive), var(--primary), var(--muted-foreground), var(--accent));
+  background-size: 200% 100%;
+  filter: blur(var(--rainbow-glow-blur));
+  animation: rainbow-glow var(--rainbow-duration) linear infinite;
+}
+
+.rainbow-cta:hover {
+  --rainbow-duration: 2s;
+}
+
+@keyframes rainbow-band {
+  to {
+    background-position: 0 0, 0 0, 200% 0;
+  }
+}
+
+@keyframes rainbow-glow {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rainbow-cta,
+  .rainbow-cta::before {
+    animation: none;
+  }
+}

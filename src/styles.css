@@ -1,0 +1,109 @@
+@import "tailwindcss" source(none);
+@import "./design-system/styles.css";
+@source "../src";
+@source "./design-system/**/*.{ts,tsx,css}";
+
+/* App theme layer: Warm ivory (60%) / Deep editorial blue (30%) / Coral (10%). */
+html:root {
+  --background: #eae6de;
+  --foreground: #183b56;
+  --card: #dfdbd2;
+  --card-foreground: #183b56;
+  --popover: #f5f2ec;
+  --popover-foreground: #183b56;
+  --secondary: #dfdbd2;
+  --secondary-foreground: #183b56;
+  --muted: #dfdbd2;
+  --muted-foreground: #52799a;
+
+  --primary: #226192;
+  --primary-foreground: #f5f2ec;
+  --primary-hover: #174366;
+  --border: rgb(34 97 146 / 0.18);
+  --input: rgb(34 97 146 / 0.28);
+  --ring: #226192;
+
+  --accent: #ef8557;
+  --accent-foreground: #183b56;
+  --accent-soft: rgb(239 133 87 / 0.1);
+
+  --destructive: #c0442b;
+  --destructive-foreground: #f5f2ec;
+
+  /* Illustration roles stay independent of interface contrast inversion. */
+  --mascot-skin: var(--secondary);
+  --mascot-paper: var(--card);
+  --mascot-ink: var(--foreground);
+  --mascot-beanie: var(--foreground);
+  --mascot-shirt: var(--primary);
+  --mascot-shade: var(--destructive);
+  --mascot-blush: var(--accent);
+  --factory-paper: var(--card);
+  --factory-ink: var(--foreground);
+  --factory-structure: var(--primary);
+  --factory-light: var(--card);
+  --factory-shell: var(--foreground);
+  --factory-base: var(--foreground);
+  --factory-edge: var(--muted-foreground);
+  --factory-belt: var(--primary);
+  --factory-copper: var(--destructive);
+  --factory-signal: var(--accent);
+  --factory-label: var(--muted-foreground);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+/* Fit only the portalled decorative glow; keep the mover/answer unclipped. */
+.mo-root > .mo-halo {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0;
+  transform: translate(calc(-100% / 2), calc(-100% / 2));
+}
+
+/* User-requested optional palette; components retain their semantic tokens. */
+html:root.dark {
+  color-scheme: dark;
+  --background: #031211;
+  --foreground: #e8e4d3;
+  --card: color-mix(in oklab, var(--background), var(--foreground) 5%);
+  --card-foreground: var(--foreground);
+  --popover: color-mix(in oklab, var(--background), var(--foreground) 8%);
+  --popover-foreground: var(--foreground);
+  --secondary: color-mix(in oklab, var(--background), var(--foreground) 10%);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--secondary);
+  --muted-foreground: color-mix(in oklab, var(--foreground), var(--background) 30%);
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --primary-hover: color-mix(in oklab, var(--foreground), var(--background) 12%);
+  --accent: #00aebb;
+  --accent-foreground: var(--background);
+  --accent-soft: color-mix(in oklab, var(--accent) 10%, transparent);
+  --border: color-mix(in oklab, var(--foreground) 18%, transparent);
+  --input: color-mix(in oklab, var(--foreground) 28%, transparent);
+  --ring: var(--accent);
+  --destructive-foreground: var(--foreground);
+  --mascot-skin: color-mix(in oklab, var(--foreground), var(--destructive) 24%);
+  --mascot-paper: var(--foreground);
+  --mascot-ink: var(--background);
+  --mascot-beanie: var(--accent);
+  --mascot-shirt: var(--accent);
+  --mascot-shade: color-mix(in oklab, var(--destructive), var(--background) 30%);
+  --mascot-blush: color-mix(in oklab, var(--destructive), var(--foreground) 35%);
+  --factory-paper: var(--foreground);
+  --factory-ink: var(--background);
+  --factory-structure: var(--accent);
+  --factory-light: var(--foreground);
+  --factory-shell: color-mix(in oklab, var(--accent), var(--background) 45%);
+  --factory-base: color-mix(in oklab, var(--background), var(--foreground) 22%);
+  --factory-edge: var(--foreground);
+  --factory-belt: color-mix(in oklab, var(--background), var(--accent) 25%);
+  --factory-copper: var(--destructive);
+  --factory-signal: var(--destructive);
+  --factory-label: color-mix(in oklab, var(--background), var(--foreground) 35%);
+}

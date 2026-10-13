@@ -1,0 +1,12 @@
+.stagger-testimonials {
+  height: calc(var(--spacing) * 144);
+  touch-action: pan-y;
+}
+.stagger-testimonial {
+  left: 50%;
+  top: 50%;
+  width: min(calc(var(--spacing) * 96), calc(100% - var(--spacing) * 12));
+  height: calc(var(--spacing) * 108);
+  clip-path: polygon(var(--stagger-corner) 0, calc(100% - var(--stagger-corner)) 0, 100% var(--stagger-corner), 100% 100%, var(--stagger-corner) 100%, 0 calc(100% - var(--stagger-corner)), 0 0);
+  --stagger-corner: calc(var(--spacing) * 8);
+}

@@ -1,0 +1,595 @@
+/* MorphOrb — reconstructed stylesheet for the extracted component.
+   The upload shipped only the TSX and the keyframes, so every .mo-* rule
+   below is rebuilt from the component's animation engine. Geometry
+   constants mirror that engine exactly: PILL_H = 60, BALL_SMALL = 60,
+   ORB_D = 132, CANVAS = 220, CARD_H = 108, card width 320. The stage
+   centre sits at 46% of the container, the idle pill's centre 96px above
+   the container bottom. Colors, fonts and radii come from the design
+   system tokens. */
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes mo-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes mo-drift {
+  from {
+    transform: translateX(-14%);
+  }
+  to {
+    transform: translateX(14%);
+  }
+}
+
+@keyframes mo-shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes mo-dot {
+  0%, 80%, 100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes mo-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mo-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes mo-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mo-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mo-shake {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(calc(-50% - 4px), -50%);
+  }
+  75% {
+    transform: translate(calc(-50% + 4px), -50%);
+  }
+}
+
+.mo-root {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  --hOp: 0;
+}
+
+/* ambient layers, lit by --oCenter while the orb is on stage */
+.mo-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% 46%, transparent 38%, color-mix(in oklab, var(--foreground) 22%, transparent) 100%);
+  opacity: var(--oCenter);
+}
+
+.mo-halo {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 640px;
+  height: 640px;
+  margin: -320px 0 0 -320px;
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 65%);
+  filter: blur(40px);
+  opacity: var(--oCenter);
+}
+
+/* the mover is a zero-size anchor at the stage centre; the runtime
+   translates it between the resting pill and the stage */
+.mo-mover {
+  position: absolute;
+  left: 50%;
+  top: calc(100% / 2);
+}
+
+.mo-trail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--accent) 45%, transparent);
+  filter: blur(10px);
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+}
+
+.mo-actor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--w);
+  height: var(--h);
+  border-radius: var(--r);
+  transform: translate(-50%, -50%);
+}
+
+.mo-actor[data-shake] {
+  animation: mo-shake 0.26s ease;
+}
+
+.mo-actor[data-flash] {
+  outline: 2px solid var(--destructive);
+  outline-offset: 2px;
+}
+
+.mo-underglow {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -6px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, color-mix(in oklab, var(--foreground) 30%, transparent), transparent 70%);
+  filter: blur(12px);
+  opacity: var(--oGlow);
+}
+
+.mo-halo-green {
+  position: absolute;
+  inset: -12%;
+  border-radius: inherit;
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 40%, transparent), transparent 70%);
+  filter: blur(24px);
+  opacity: var(--oHalo);
+  transform: scale(var(--bloom));
+}
+
+/* the idle pill surface, with slow aurora blobs drifting inside */
+.mo-surface {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+  opacity: var(--oPill);
+  backdrop-filter: blur(10px);
+}
+
+.mo-aurora {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: var(--oAur);
+}
+
+.mo-aurora i {
+  position: absolute;
+  width: 120%;
+  height: 160%;
+  border-radius: 50%;
+  filter: blur(28px);
+  animation: mo-drift 5.5s ease-in-out infinite alternate;
+}
+
+.mo-aurora i:nth-child(1) {
+  left: -30%;
+  top: -60%;
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+.mo-aurora i:nth-child(2) {
+  left: 20%;
+  top: -50%;
+  background: color-mix(in oklab, var(--primary) 9%, transparent);
+  animation-delay: -1.4s;
+}
+
+.mo-aurora i:nth-child(3) {
+  left: 55%;
+  top: -40%;
+  background: color-mix(in oklab, var(--accent) 6%, transparent);
+  animation-delay: -2.8s;
+}
+
+.mo-aurora i:nth-child(4) {
+  left: -10%;
+  top: -30%;
+  background: color-mix(in oklab, var(--primary) 4%, transparent);
+  animation-delay: -4.2s;
+}
+
+/* the flying ball — the actor fill while it launches off the pill */
+.mo-ball {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 30% 28%, color-mix(in oklab, var(--card) 80%, transparent) 0%, transparent 60%),
+    linear-gradient(135deg, var(--primary), var(--primary-hover));
+  box-shadow: var(--shadow-elevated);
+  opacity: var(--oBall);
+}
+
+/* the solid disc that condenses out of the orb before the card unfolds */
+.mo-green {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  box-shadow: var(--shadow-elevated);
+  opacity: var(--oGreen);
+  transform: scale(var(--gs));
+}
+
+/* the answer card */
+.mo-card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r);
+  background: color-mix(in oklab, var(--card) 94%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-elevated);
+  opacity: var(--oCard);
+  transform: scale(var(--cs));
+}
+
+/* hairline ring with a rotating conic shimmer */
+.mo-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--r) + 1px);
+  padding: 1px;
+  background: conic-gradient(from var(--angle), color-mix(in oklab, var(--primary) 30%, transparent), color-mix(in oklab, var(--accent) 80%, transparent), color-mix(in oklab, var(--primary) 30%, transparent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: mo-spin 3s linear infinite;
+  opacity: var(--oRing);
+}
+
+.mo-input {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px 0 18px;
+  border-radius: inherit;
+  opacity: var(--oInput);
+  transform: scale(var(--inScale));
+  pointer-events: auto;
+}
+
+.mo-spark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.mo-field {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.mo-field::placeholder {
+  color: var(--muted-foreground);
+}
+
+.mo-field:focus-visible {
+  outline: none;
+}
+
+.mo-send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 16%, transparent);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.mo-send svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mo-send[data-ready] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.mo-send[data-ready]:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.mo-send:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.mo-orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--spacing) * 72);
+  height: calc(var(--spacing) * 72);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.mo-pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--spacing) * 44);
+  height: calc(var(--spacing) * 44);
+  margin-top: calc(var(--spacing) * -22);
+  margin-left: calc(var(--spacing) * -22);
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+}
+
+/* answer text, only interactive once it is unfolded */
+.mo-answer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  opacity: var(--hOp);
+  outline: none;
+  overflow: hidden;
+}
+
+.mo-root[data-phase="unfold"] .mo-answer,
+.mo-root[data-phase="answered"] .mo-answer {
+  pointer-events: auto;
+}
+
+.mo-a-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.mo-a-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: scale(var(--dotS));
+}
+
+.mo-a-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--foreground);
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.mo-w {
+  display: inline;
+}
+
+/* thinking label above the orb */
+.mo-status {
+  position: absolute;
+  left: 50%;
+  top: calc(100% / 2);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, calc(-50% - var(--spacing) * 30 + var(--sTy) * 1px));
+  opacity: var(--sOp);
+}
+
+.mo-lab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+  animation: mo-in 0.3s ease both;
+}
+
+.mo-lab.mo-out {
+  position: absolute;
+  animation: mo-out 0.3s ease both;
+}
+
+.mo-lab-done {
+  color: var(--accent);
+}
+
+.mo-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.mo-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: mo-dot 1.2s ease infinite;
+}
+
+.mo-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.mo-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* the reset control under the unfolded card */
+.mo-reset {
+  position: absolute;
+  left: 50%;
+  top: calc(100% / 2 + var(--spacing) * 20);
+  transform: translateX(-50%);
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  box-shadow: var(--shadow-paper);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  opacity: var(--hOp);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.mo-root[data-phase="answered"] .mo-reset {
+  pointer-events: auto;
+}
+
+.mo-reset:hover {
+  border-color: var(--primary);
+  background: var(--accent-soft);
+}
+
+.mo-reset:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.mo-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.mo-debug {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  pointer-events: auto;
+}
+
+.mo-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+.mo-debug label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mo-debug button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-aurora i,
+  .mo-ring,
+  .mo-lab,
+  .mo-dots i {
+    animation: none;
+  }
+}

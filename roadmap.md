@@ -1,0 +1,52 @@
+- [x] Place the supplied factory in Engineering Process and adapt its stations to the existing workflow.
+- [x] Verify the factory, station selection, view modes, playback, and compact layout in the preview.
+- [x] Replace hero runtime panel with supplied cartoon and a smaller ask bar below.
+- [x] Verify cartoon interactions and the ask bar cycle.
+- [x] Replace endorsements with the supplied staggered carousel style and verify navigation and compact layout.
+- [x] Replace §03 with the supplied works wheel, temporary stock covers, and existing project details.
+- [x] Verify wheel navigation, images, and compact layout.
+- [x] Fit Featured Projects to the viewport with an adaptive wheel and readable details.
+- [x] Verify every project at desktop, tablet, and phone sizes.
+- [x] Use Featured Projects space for adjacent project information and clickable covers.
+- [x] Add and verify separate detailed pages for all three projects.
+- [x] Replace Quantified Signal with the supplied draggable grid and grounded portfolio widgets.
+- [x] Verify resizing, reordering, reset, and single-screen layouts.
+- [x] Make §05 Engineering Persona a bold scroll-driven showpiece.
+- [x] Add the supplied topo-field WebGL background behind the hero and verify it renders themed on desktop and mobile.
+- [x] Animate the profile hover and startup entrance, then verify both and reduced-motion behavior.
+- [x] Add the optional dark palette and theme toggle; verify switching, saved choice, and project pages.
+- [x] Expand the portfolio to five in-progress projects with honest target benchmarks.
+- [x] Add four target roles to the hero and align supporting sections with the five projects.
+- [x] Verify all five project pages, responsive sections, metadata, themes, and AI-orb context.
+- [x] Add four role-specific career pages with verified skills, relevant projects, and five prepared resume slots.
+- [x] Wire hero and Role Match entry points, then verify role-page flows across screen sizes.
+- [x] Attach the supplied general resume PDF to the hero/profile download slot; the four role-specific resumes stay pending from the user.
+- [x] Attach the supplied GenAI / Agentic AI resume to its role page.
+- [x] Attach the supplied Software Engineer (Backend) resume to its role page.
+- [x] Attach the remaining role-specific resumes: MLOps Engineer and AI/ML Engineer.
+- [x] Add verified resume evidence to existing portfolio surfaces without increasing homepage length.
+- [x] Fix Engineering Persona scroll visibility and replace the education description with relevant coursework.
+- [x] Add the IIT Dharwad A.I – Technocrat entry above the BCA entry in the Education tab, kept compact on every screen.
+- [x] Add the three supplied certification verification links (Oracle, Credly, GeeksforGeeks) to the Credentials tab.
+- [x] Create and inspect five 1200×630 editorial share images for the homepage and role pages.
+- [x] Connect and verify page-specific social image tags using self-hosted public assets.
+- [x] Make project self-contained: host 5 resumes + project images directly in the repository public and asset folders.
+- [x] Switch Ask Orb and Role Match to direct AI providers (Groq and Gemini) using environment keys (GROQ_API_KEY, GOOGLE_API_KEY).
+- [x] Generate a custom coral orb favicon, wire /favicon.png in the root head, and remove the stale favicon.ico.
+- [x] Make night mode the default theme; a saved light or dark preference still wins on return visits.
+- [x] Align the factory's physical stations, controls, and packet animation to Data → Build → Validate → Observe → Deploy.
+- [x] Add a general-resume download beside the email action in the footer.
+- [x] Integrate the supplied ghost 404 page for unknown URLs, projects and roles.
+- [x] Add the Instagram link to the footer "Around the web" block, profile structured data, and llms.txt.
+- [x] Replace the wave footer with the halftone wordmark footer printing "alhan", keeping all footer blocks in place.
+- [x] Replace the hero's topo lines with the supplied murmuration flock printing "ALHAN", keeping every hero element in front and legible.
+- [x] Shrink the hero cartoon slightly and dock the ask box directly beneath it, holding the fit at rest, after asking, and while scrolling.
+- [x] Clear the floating navigation from the "In Progress" badge on phone and tablet.
+- [x] Give the hero a vertical scrim below desktop so the flock never washes out the headline or paragraph.
+
+- [x] Replace Featured Projects with the supplied orbit gallery above complete project information in one screen.
+- [x] Verify gallery controls, project links, themes and compact layouts.
+- [x] Replace the cartoon with the supplied compact robot, fixed artwork colors, shadows and interactions.
+- [x] Verify robot framing, motion, themes and Ask Orb docking across screen sizes.
+- [x] Remove the orb glow's mobile width overflow and verify full-page fit, themes and the question/reset flow.
+- [x] Fit all five projects' complete mobile information in the lower half without scrolling; verify themes and project links.

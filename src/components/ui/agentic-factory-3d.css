@@ -1,0 +1,59 @@
+.agentic-factory-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  contain: layout;
+  background: var(--secondary);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+.agentic-factory-3d #scene,
+.agentic-factory-3d #labels {
+  position: absolute;
+  inset: 0;
+}
+.agentic-factory-3d #scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+.agentic-factory-3d #labels { pointer-events: none; }
+.agentic-factory-3d .station-label { display: none; }
+.agentic-factory-3d #tooltip {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  max-width: calc(var(--spacing) * 60);
+  padding: calc(var(--spacing) * 4);
+  border-radius: var(--radius-md);
+  background: var(--popover);
+  box-shadow: var(--shadow-elevated);
+  font-size: var(--text-sm);
+}
+.agentic-factory-3d #tooltip.visible { opacity: 1; }
+.agentic-factory-3d #tooltip strong span {
+  color: var(--accent);
+  margin-right: calc(var(--spacing) * 2);
+}
+.agentic-factory-3d #tooltip p {
+  color: var(--muted-foreground);
+  margin-top: calc(var(--spacing) * 2);
+}
+.agentic-factory-3d #loading,
+.agentic-factory-3d #error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 6);
+  text-align: center;
+  background: var(--secondary);
+  color: var(--muted-foreground);
+}
+.agentic-factory-3d #loading.done { display: none; }
+.agentic-factory-3d #error { display: none; }
