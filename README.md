@@ -190,7 +190,7 @@ This website is a showcase of advanced frontend engineering, WebGL graphics, and
 - **Concept**: An interactive morphing AI assistant docked directly beneath the 3D robot.
 - **Visual State Machine**: Transitions through 9 distinct geometric states:
   $$\text{idle} \longrightarrow \text{launch} \longrightarrow \text{assemble} \longrightarrow \text{think} \longrightarrow \text{resolve} \longrightarrow \text{condense} \longrightarrow \text{unfold} \longrightarrow \text{answered} \longrightarrow \text{reset}$$
-- **AI Intelligence**: Connected directly to an edge server function (`askOrb`) that queries Groq (`llama-3.3-70b-versatile`) with Google Gemini (`gemini-2.5-flash`) as backup.
+- **AI Intelligence**: Connected directly to an edge server function (`askOrb`) that queries Groq (`openai/gpt-oss-120b`) with Google Gemini (`gemini-3.5-flash`) as backup.
 - **Guardrails**: Prompt-engineered with strict grounding on Alhan's verified resume facts; politely rejects questions unrelated to Alhan's engineering background.
 
 ### 4. Procedural 3D Agentic Factory Machine (`agentic-factory-3d.tsx`)
@@ -379,10 +379,13 @@ The AI integrations are engineered without third-party proxy dependencies:
 │   TanStack Start Server Function (createServerFn)                      │
 │              │                                                         │
 │              ├──► 1. Primary: Groq REST API                            │
-│              │    (llama-3.3-70b-versatile, <300ms ultra-low latency)  │
+│              │    (openai/gpt-oss-120b, <300ms ultra-low latency)      │
 │              │                                                         │
-│              └──► 2. Fallback: Google Gemini REST API                  │
-│                   (gemini-2.5-flash / gemini-3.8-flash)                │
+│              ├──► 2. Secondary: Google Gemini REST API                 │
+│              │    (gemini-3.5-flash / gemini-3.8-flash)                │
+│              │                                                         │
+│              └──► 3. Deterministic Verified Fallback                   │
+│                   (Zero-latency verified match if APIs rate-limit)     │
 │                                                                        │
 │              │                                                         │
 │              ▼                                                         │

@@ -65,10 +65,9 @@ export const askOrb = createServerFn({ method: "POST" })
         ? "The orb could not reach the AI right now. Try again in a moment."
         : "The orb is not connected yet — the site owner needs to add an AI key.";
     }
-    // Gemini Interactions API over REST. gemini-2.5-flash is primary for
-    // speed: gemini-3.8-flash returns 503 for this key, and the failed attempt
-    // doubled the orb's wait. Thinking is omitted so answers start immediately.
-    const models = ["models/gemini-2.5-flash", "models/gemini-3.8-flash"];
+    // Gemini Interactions API over REST. gemini-3.5-flash is primary for
+    // speed and reliability; gemini-3.8-flash and gemini-flash-latest serve as backups.
+    const models = ["models/gemini-3.5-flash", "models/gemini-3.8-flash", "models/gemini-flash-latest"];
     let lastStatus = 0;
     for (const model of models) {
       const res = await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
