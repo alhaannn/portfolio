@@ -4,8 +4,10 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { PortfolioThemeProvider } from "@/components/portfolio/Theme";
@@ -84,11 +86,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <PortfolioThemeProvider>
         <Outlet />
+        <SpeedInsights route={pathname} />
       </PortfolioThemeProvider>
     </QueryClientProvider>
   );
